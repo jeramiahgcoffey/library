@@ -1,0 +1,65 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+}
+
+#library-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 325px));
+    justify-content: space-around;
+
+}
+
+.card {
+    background-color: rgb(78, 78, 78);
+    margin: 0 auto 20px auto;
+    padding: 15px 10px;
+    width: 95%;
+    height: 300px;
+    border: 1px solid white;
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+}
+
+.card-top {
+    grid-column: span 2;
+    grid-row: 1;
+    text-align: center;
+    align-self: center;
+}
+.card-top div {
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 2rem;
+}
+
+.author {
+    font-size: 1.4rem;
+}
+
+.pages {
+    grid-row: 2;
+    grid-column: 1;
+    align-self: flex-end;
+    font-size: 1.3rem;
+    padding-left: 25px;
+}
+
+.read-status {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: flex-end;
+    text-align: right;
+    font-size: 1.3rem;
+    padding-right: 25px;
+}
