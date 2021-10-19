@@ -6,15 +6,75 @@
 
 body {
     background-color: black;
+    color: white;
+    font-family: Geneva, Tahoma, sans-serif;
 }
 
+/* Fixes cursor for div "buttons" */
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+/* Header Styles */
+h1 {
+    font-size: 4rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-top: 0;
+    text-align: center;
+}
+
+/* Modal */
+.btn-open-modal {
+    background-color: green;
+    font-size: 2.5rem;
+    color: inherit;
+    text-align: center;
+    width: 250px;
+    margin: 0 auto 3rem auto;
+    padding: 10px 15px;
+}
+
+.btn-open-modal:hover {
+    background-color: rgba(0, 128, 0, 0.651);
+}
+
+.add-book-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 2s;
+    width: 500px;
+    padding: 0 30px 10px 30px;
+    border: 1px solid white;
+    background-color: rgb(78, 78, 78);
+}
+
+.btn-close-modal {
+    width: fit-content;
+    margin-left: auto;
+    padding: 5px;
+}
+
+/* Main Grid Container */
 #library-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 325px));
     justify-content: space-around;
-
 }
 
+/* Card Styles */
 .card {
     background-color: rgb(78, 78, 78);
     margin: 0 auto 20px auto;
@@ -22,21 +82,11 @@ body {
     width: 95%;
     height: 300px;
     border: 1px solid white;
-    color: white;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-
 }
 
-.card-top {
-    grid-column: span 2;
-    grid-row: 1;
+.card div {
     text-align: center;
-    align-self: center;
-}
-.card-top div {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .title {
@@ -44,22 +94,31 @@ body {
 }
 
 .author {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
 }
 
 .pages {
-    grid-row: 2;
-    grid-column: 1;
-    align-self: flex-end;
-    font-size: 1.3rem;
-    padding-left: 25px;
+    font-size: 1rem;
 }
 
 .read-status {
-    grid-column: 2;
-    grid-row: 2;
-    align-self: flex-end;
-    text-align: right;
-    font-size: 1.3rem;
-    padding-right: 25px;
+    font-size: 1rem;
+    background-color: orangered;
+}
+
+.read {
+    background-color: green;
+}
+
+.remove-button,
+.read-status {
+    font-size: 1rem;
+    margin: auto;
+    padding: 5px 10px;
+    border: 1px solid black;
+    width: 150px;
+}
+
+.remove-button:hover {
+    background-color: red;
 }

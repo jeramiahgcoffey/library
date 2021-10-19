@@ -1,71 +1,144 @@
-let myLibrary = [];
+class Book {
+    constructor(
+        title = "Unknown",
+        author = "Unknown",
+        pages = "Unknown",
+        read = false
+    ) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+}
 
-function Book(title, author, pages, read) {
-    this.title = title,
-    this.author = author,
-    this.pages = pages,
-    this.read = read
-} 
+class Library {
+    constructor() {
+        this.books = [];
+    }
 
-Book.prototype.info = function () {
-    let readStatus;
-    if (!read) readStatus = "not read yet";
-    else readStatus = "completed";
-    return `${title} by ${author}, ${pages} pages, ${readStatus}`;
+    addBook(bookToAdd) {
+        this.books.push(bookToAdd);
+    }
+
+    removeBook(index) {
+        this.books.splice(index, 1);
+    }
+}
+
+const myLibrary = new Library();
+
+// User Interface
+const bookModal = document.querySelector(".add-book-modal");
+const openBookModalButton = document.querySelector(".btn-open-modal");
+const closeBookModalButton = document.querySelector(".btn-close-modal");
+const addBookForm = document.querySelector("#add-book-form");
+const libraryGrid = document.querySelector("#library-container");
+
+function clearLibraryGrid() {
+    while (libraryGrid.firstChild) {
+        libraryGrid.removeChild(libraryGrid.lastChild);
+    }
+}
+
+function populateLibraryGrid() {
+    clearLibraryGrid();
+
+    for (const book of myLibrary.books) {
+        let index = 0;
+
+        const newCard = document.createElement("div");
+        const bookTitle = document.createElement("div");
+        const bookAuthor = document.createElement("div");
+        const bookPages = document.createElement("div");
+        const bookReadStatus = document.createElement("div");
+        const removeButton = document.createElement("div");
+
+        newCard.classList.add("card");
+        bookTitle.classList.add("title");
+        bookAuthor.classList.add("author");
+        bookPages.classList.add("pages");
+        bookReadStatus.classList.add("read-status", "noselect");
+        removeButton.classList.add("remove-button", "noselect");
+
+        bookTitle.textContent = book.title;
+        bookAuthor.textContent = book.author;
+        bookPages.textContent = book.pages + " Pages";
+        if (!book.read) {
+            bookReadStatus.textContent = "Not Read";
+        } else {
+            bookReadStatus.textContent = "Read";
+            bookReadStatus.classList.toggle("read");
+        }
+        removeButton.textContent = "Remove Book";
+
+        removeButton.dataset.indexNumber = index;
+
+        bookReadStatus.addEventListener("click", toggleReadStatus);
+        removeButton.addEventListener("click", removeBook);
+
+        newCard.appendChild(bookTitle);
+        newCard.appendChild(bookAuthor);
+        newCard.appendChild(bookPages);
+        newCard.appendChild(bookReadStatus);
+        newCard.appendChild(removeButton);
+
+        libraryGrid.appendChild(newCard);
+
+        index++;
+    }
 }
 
 function addBookToLibrary(title, author, pages, read) {
-    myLibrary.push(new Book(title, author, pages, read));
+    myLibrary.addBook(new Book(title, author, pages, read));
+    populateLibraryGrid();
 }
 
-addBookToLibrary("The Hunger Games", "test", 999, true)
-addBookToLibrary("The Hunger Games", "test", 999, true)
-addBookToLibrary("The Hunger Games", "test", 999, false)
-addBookToLibrary("The Hunger Games", "test", 999, true)
-addBookToLibrary("The Hunger Games", "test", 999, true)
-addBookToLibrary("The Hunger Games", "test", 999, true)
-addBookToLibrary("This is My Book", "Jeramiah Coffey", 1929283, true)
-// console.log(myLibrary)
-
-function displayLibrary() {
-    const library = document.querySelector("#library-container");
-
-    for (let i = 0; i < myLibrary.length; i++) {
-        const book = myLibrary[i]
-        const libraryContainer = document.querySelector("#library-container")
-
-        const newCard = document.createElement("div");
-        newCard.classList.add("card");
-        libraryContainer.appendChild(newCard);
-
-        const cardTop = document.createElement("div");
-        cardTop.classList.add("card-top");
-
-        const bookTitle = document.createElement("div");
-        bookTitle.classList.add("title");
-        bookTitle.textContent = book.title;
-        cardTop.appendChild(bookTitle);
-
-        const bookAuthor = document.createElement("div");
-        bookAuthor.classList.add("author")
-        bookAuthor.textContent = book.author;
-        cardTop.appendChild(bookAuthor);
-        newCard.appendChild(cardTop);
-
-        const bookPages = document.createElement("div");
-        bookPages.classList.add("pages");
-        bookPages.textContent = book.pages + " Pages";
-        newCard.appendChild(bookPages);
-
-        const bookReadStatus = document.createElement("div");
-        bookReadStatus.classList.add("read-status");
-        let readTextContent;
-        if (!book.read) readTextContent = "Incomplete";
-        else readTextContent = "Completed"
-        bookReadStatus.textContent = readTextContent;
-        newCard.appendChild(bookReadStatus);
-
-        libraryContainer.appendChild(newCard);
-    }
+function removeBookFromLibrary(index) {
+    myLibrary.removeBook(index);
+    populateLibraryGrid();
 }
-displayLibrary()
+
+function changeReadStatus(status) {
+    return status == "Read" ? "Not Read" : "Read";
+}
+
+function createBookFromInput() {
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const pages = document.getElementById("pages").value;
+    const hasRead = document.getElementById("has-read").checked;
+    addBookToLibrary(title, author, pages, hasRead);
+}
+
+// Event Handlers
+function openBookModal() {
+    bookModal.style.display = "block";
+    addBookForm.reset();
+}
+
+function closeBookModal() {
+    bookModal.style.display = "none";
+}
+
+function submitBook(e) {
+    e.preventDefault();
+    createBookFromInput();
+    closeBookModal();
+}
+
+function toggleReadStatus(e) {
+    e.target.classList.toggle("read");
+    e.target.textContent = changeReadStatus(e.target.textContent);
+}
+
+function removeBook(e) {
+    removeBookFromLibrary(e.target.dataset.indexNumber);
+    populateLibraryGrid();
+}
+
+openBookModalButton.onclick = openBookModal;
+closeBookModalButton.onclick = closeBookModal;
+addBookForm.onsubmit = submitBook;
+
+window.onload = populateLibraryGrid;

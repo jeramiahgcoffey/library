@@ -1,19 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css"
-    <title>Book Keeper</title>
-</head>
-<body>
-    <div id="library-container">
-        <!-- <div class="card">test</div>
-        <div class="card">test</div>
-        <div class="card">test</div>
-        <div class="card">test</div> -->
-    </div>
-<script src="script.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles.css" />
+        <title>Book Keeper</title>
+    </head>
+    <body>
+        <h1>Book Keeper</h1>
+        <div class="btn-open-modal noselect">Add Book</div>
+        <div class="add-book-modal">
+            <div class="modal-content">
+                <div class="btn-close-modal noselect">X</div>
+                <h2>Add Book to Library</h2>
+                <form id="add-book-form">
+                    <label for="title">Title:</label><br />
+                    <input type="text" id="title" name="title" required /><br />
+                    <label for="author">Author:</label><br />
+                    <input
+                        type="text"
+                        id="author"
+                        name="author"
+                        required
+                    /><br />
+                    <label for="pages"># of pages:</label><br />
+                    <input type="text" id="pages" name="pages" required /><br />
+                    <input type="checkbox" id="has-read" value="true" />
+                    <label for="status">Check if already read</label><br />
+                    <input type="submit" id="btn-add-book" />
+                </form>
+            </div>
+        </div>
+        <div id="library-container"></div>
+        <script src="script.js"></script>
+    </body>
 </html>
