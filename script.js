@@ -48,6 +48,7 @@ const openBookModalButton = document.querySelector(".btn-open-modal");
 const closeBookModalButton = document.querySelector(".btn-close-modal");
 const addBookForm = document.querySelector("#add-book-form");
 const libraryGrid = document.querySelector("#library-container");
+const overlay = document.querySelector(".overlay");
 
 function clearLibraryGrid() {
     while (libraryGrid.firstChild) {
@@ -126,12 +127,14 @@ function createBookFromInput() {
 
 // Event Handlers
 function openBookModal() {
-    bookModal.style.display = "block";
+    bookModal.classList.add("active");
+    overlay.style.display = "block";
     addBookForm.reset();
 }
 
 function closeBookModal() {
-    bookModal.style.display = "none";
+    bookModal.classList.remove("active");
+    overlay.style.display = "none";
 }
 
 function submitBook(e) {
@@ -164,7 +167,6 @@ const saveLocal = () => {
 
 const restoreLocal = () => {
     const books = JSON.parse(localStorage.getItem("myLibrary"));
-    console.log(books);
     if (books) {
         myLibrary.books = books.map((book) => JSONToBook(book));
     } else {
