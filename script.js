@@ -43,14 +43,13 @@ function clearLibraryGrid() {
 
 function populateLibraryGrid() {
     clearLibraryGrid();
-
+    let index = 0;
     for (const book of myLibrary.books) {
-        let index = 0;
-
         const newCard = document.createElement("div");
         const bookTitle = document.createElement("div");
         const bookAuthor = document.createElement("div");
         const bookPages = document.createElement("div");
+        const cardButtons = document.createElement("div");
         const bookReadStatus = document.createElement("div");
         const removeButton = document.createElement("div");
 
@@ -58,6 +57,7 @@ function populateLibraryGrid() {
         bookTitle.classList.add("title");
         bookAuthor.classList.add("author");
         bookPages.classList.add("pages");
+        cardButtons.classList.add("card-btn-container");
         bookReadStatus.classList.add("read-status", "noselect");
         removeButton.classList.add("remove-button", "noselect");
 
@@ -80,8 +80,9 @@ function populateLibraryGrid() {
         newCard.appendChild(bookTitle);
         newCard.appendChild(bookAuthor);
         newCard.appendChild(bookPages);
-        newCard.appendChild(bookReadStatus);
-        newCard.appendChild(removeButton);
+        cardButtons.appendChild(bookReadStatus);
+        cardButtons.appendChild(removeButton);
+        newCard.appendChild(cardButtons);
 
         libraryGrid.appendChild(newCard);
 
@@ -104,7 +105,7 @@ function changeReadStatus(status) {
 }
 
 function createBookFromInput() {
-    const title = document.getElementById("title").value;
+    const title = `"${document.getElementById("title").value}"`;
     const author = document.getElementById("author").value;
     const pages = document.getElementById("pages").value;
     const hasRead = document.getElementById("has-read").checked;
