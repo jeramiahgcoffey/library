@@ -69,6 +69,7 @@ h2 {
     margin: 0 auto 3rem auto;
     padding: 10px 15px;
     border-radius: 5px;
+    transition: .2s;
 }
 
 .btn-open-modal:hover {
@@ -128,6 +129,7 @@ h2 {
     background-color: var(--green);
     border-radius: 5px;
     border: none;
+    transition: .2s;
 }
 
 .btn-submit:hover {
@@ -189,6 +191,7 @@ h2 {
 
 .remove-button {
     bottom: 0;
+    transition: .2s;
 }
 
 .read-status {
@@ -225,6 +228,7 @@ h2 {
 
 a {
     text-decoration: none;
+    transition: .2s;
 }
 
 a:visited {
@@ -233,6 +237,7 @@ a:visited {
 
 a:hover {
     color: var(--green);
+    font-size: 22px;
 }
 
 /* Media Queries */
@@ -248,5 +253,9 @@ a:hover {
 
     .footer {
         font-size: 14px;
+    }
+
+    a:hover {
+        font-size: 16px;
     }
 }
