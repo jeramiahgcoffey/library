@@ -140,7 +140,7 @@ h2 {
 #library-container {
     margin: 0 30px 30px 30px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(275px, 500px));
+    grid-template-columns: repeat(auto-fit, minmax(275px, 450px));
     grid-gap: 20px;
     justify-content: space-around;
 }
@@ -216,11 +216,11 @@ h2 {
 
 .footer {
     position: absolute;
-    top: 97%;
+    top: 96%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    margin-top: 15px;
+    margin-top: 25px;
     padding-bottom: 10px;
     font-size: 20px;
     text-align: center;
