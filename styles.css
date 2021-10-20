@@ -16,6 +16,11 @@
     padding: 0;
 }
 
+html {
+    min-height: 100%;
+    position: relative;
+}
+
 body {
     background-color: var(--dark-primary);
     color: var(--text-color);
@@ -49,7 +54,7 @@ h2 {
 
 .header {
     background-color: var(--dark-secondary);
-    padding: 40px 50px;
+    padding: 40px 0;
     margin-bottom: 30px;
     border-bottom: 1px solid var(--text-color);
 }
@@ -131,7 +136,7 @@ h2 {
 
 /* Main Grid Container */
 #library-container {
-    margin: 0 30px;
+    margin: 0 30px 30px 30px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(275px, 500px));
     grid-gap: 20px;
@@ -194,6 +199,7 @@ h2 {
     background-color: var(--red-orange);
 }
 
+/* ---------------------- */
 .overlay {
     position: fixed;
     top: 0;
@@ -203,4 +209,44 @@ h2 {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     opacity: 1;
+}
+
+.footer {
+    position: absolute;
+    top: 99%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin-top: 15px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: var(--text-color);
+}
+
+a:hover {
+    color: var(--green);
+}
+
+/* Media Queries */
+@media (max-width: 570px) {
+    h1 {
+        font-size: 3.8rem;
+        width: 100%;
+    }
+
+    .header {
+        padding: 20px 0;
+    }
+
+    .footer {
+        font-size: 14px;
+    }
 }
