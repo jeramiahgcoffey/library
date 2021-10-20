@@ -18,11 +18,25 @@ class Library {
     }
 
     addBook(bookToAdd) {
-        this.books.push(bookToAdd);
+        if (!this.isBookInLibrary(bookToAdd)) {
+            this.books.push(bookToAdd);
+        }
     }
 
     removeBook(index) {
         this.books.splice(index, 1);
+    }
+
+    getBook(title) {
+        return this.books.find((book) => book.title === title);
+    }
+
+    isBookInLibrary(bookToCheck) {
+        return this.books.some(
+            (book) =>
+                book.title === bookToCheck.title &&
+                book.author === bookToCheck.author
+        );
     }
 }
 
@@ -61,7 +75,7 @@ function populateLibraryGrid() {
         bookReadStatus.classList.add("read-status", "noselect");
         removeButton.classList.add("remove-button", "noselect");
 
-        bookTitle.textContent = book.title;
+        bookTitle.textContent = `"${book.title}"`;
         bookAuthor.textContent = book.author;
         bookPages.textContent = book.pages + " Pages";
         if (!book.read) {
@@ -92,20 +106,18 @@ function populateLibraryGrid() {
 
 function addBookToLibrary(title, author, pages, read) {
     myLibrary.addBook(new Book(title, author, pages, read));
+    saveLocal();
     populateLibraryGrid();
 }
 
 function removeBookFromLibrary(index) {
     myLibrary.removeBook(index);
+    saveLocal();
     populateLibraryGrid();
 }
 
-function changeReadStatus(status) {
-    return status == "Read" ? "Not Read" : "Read";
-}
-
 function createBookFromInput() {
-    const title = `"${document.getElementById("title").value}"`;
+    const title = document.getElementById("title").value;
     const author = document.getElementById("author").value;
     const pages = document.getElementById("pages").value;
     const hasRead = document.getElementById("has-read").checked;
@@ -129,17 +141,40 @@ function submitBook(e) {
 }
 
 function toggleReadStatus(e) {
-    e.target.classList.toggle("read");
-    e.target.textContent = changeReadStatus(e.target.textContent);
+    const title =
+        e.target.parentNode.parentNode.firstChild.innerHTML.replaceAll('"', "");
+    const book = myLibrary.getBook(title);
+    book.read = !book.read;
+    saveLocal();
+    populateLibraryGrid();
 }
 
 function removeBook(e) {
     removeBookFromLibrary(e.target.dataset.indexNumber);
-    populateLibraryGrid();
 }
 
 openBookModalButton.onclick = openBookModal;
 closeBookModalButton.onclick = closeBookModal;
 addBookForm.onsubmit = submitBook;
 
-window.onload = populateLibraryGrid;
+// Local storage
+const saveLocal = () => {
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary.books));
+};
+
+const restoreLocal = () => {
+    const books = JSON.parse(localStorage.getItem("myLibrary"));
+    console.log(books);
+    if (books) {
+        myLibrary.books = books.map((book) => JSONToBook(book));
+    } else {
+        myLibrary.books = [];
+    }
+    populateLibraryGrid();
+};
+
+const JSONToBook = (book) => {
+    return new Book(book.title, book.author, book.pages, Boolean(book.read));
+};
+
+window.onload = restoreLocal;
