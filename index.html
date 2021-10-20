@@ -23,20 +23,45 @@
                 <div class="btn-close-modal noselect">X</div>
                 <h2>Add Book to Library</h2>
                 <form id="add-book-form">
-                    <label for="title">Title:</label><br />
-                    <input type="text" id="title" name="title" required /><br />
-                    <label for="author">Author:</label><br />
                     <input
+                        class="input"
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="Title"
+                        required
+                    /><br />
+
+                    <input
+                        class="input"
                         type="text"
                         id="author"
                         name="author"
+                        placeholder="Author"
                         required
                     /><br />
-                    <label for="pages"># of pages:</label><br />
-                    <input type="text" id="pages" name="pages" required /><br />
-                    <input type="checkbox" id="has-read" value="true" />
+
+                    <input
+                        class="input"
+                        type="text"
+                        id="pages"
+                        name="pages"
+                        placeholder="# of Pages"
+                        required
+                    /><br />
+                    <input
+                        class="checkbox"
+                        type="checkbox"
+                        id="has-read"
+                        value="true"
+                    />
                     <label for="status">Check if already read</label><br />
-                    <input type="submit" id="btn-add-book" />
+                    <input
+                        class="btn-submit"
+                        type="submit"
+                        id="btn-add-book"
+                        value="Add Book"
+                    />
                 </form>
             </div>
         </div>

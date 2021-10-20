@@ -156,9 +156,16 @@ function removeBook(e) {
     removeBookFromLibrary(e.target.dataset.indexNumber);
 }
 
+function handleKeyPress(e) {
+    if (e.key === "Escape") {
+        closeBookModal();
+    }
+}
+
 openBookModalButton.onclick = openBookModal;
 closeBookModalButton.onclick = closeBookModal;
 addBookForm.onsubmit = submitBook;
+window.onkeydown = handleKeyPress;
 
 // Local storage
 const saveLocal = () => {
